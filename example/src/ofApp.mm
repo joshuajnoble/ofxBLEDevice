@@ -77,7 +77,10 @@ void ofApp::deviceOrientationChanged(int newOrientation){
 void ofApp::didDiscoverBLEDevice(BLEDevice *device)
 {
     cout << " didDiscoverBLEDevice " << endl;
-    ofxBLEConnectDevice(device);
+    std::string deviceName([device.name UTF8String]);
+    if(deviceName == "SimpleChat") {
+        ofxBLEConnectDevice(device);
+    }
 }
 
 void ofApp::didUpdateDiscoveredBLEDevice(BLEDevice *device)

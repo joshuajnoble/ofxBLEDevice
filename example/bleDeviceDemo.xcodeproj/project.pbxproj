@@ -67,6 +67,8 @@
 		678E130D17951540005B6D19 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "bin/data/Default@2x.png"; sourceTree = "<group>"; };
 		678E130F17951549005B6D19 /* Default-568h@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x~iphone.png"; path = "bin/data/Default-568h@2x~iphone.png"; sourceTree = "<group>"; };
 		A80BA34B1AB9322A005B930A /* BLEDeviceDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLEDeviceDefines.h; sourceTree = "<group>"; };
+		A8470C9B1AC903D800180CC1 /* ofxBLECharacteristic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxBLECharacteristic.h; sourceTree = "<group>"; };
+		A8470C9C1AC90C6800180CC1 /* BLECharacteristic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLECharacteristic.h; sourceTree = "<group>"; };
 		BB16EBD10F2B2A9500518274 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BB16EBD80F2B2AB500518274 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BB24DDC910DA781C00E9C588 /* ofxiOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ofxiOS-Info.plist"; sourceTree = "<group>"; };
@@ -246,6 +248,8 @@
 				EDE5C9161991F7E00061774B /* ofxBLEDeviceDelegate.h */,
 				EDE8041F199301CA00AE9497 /* ofxBLEDeviceDelegateCpp.h */,
 				ED341BDC1992760700C5B522 /* ofxBLEDeviceDelegate.mm */,
+				A8470C9B1AC903D800180CC1 /* ofxBLECharacteristic.h */,
+				A8470C9C1AC90C6800180CC1 /* BLECharacteristic.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
