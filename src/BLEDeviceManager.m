@@ -46,14 +46,15 @@ static CBUUID *service_uuid;
 @synthesize delegate;
 @synthesize devices;
 @synthesize central;
+@synthesize charas;
 
-+ (BLEDeviceManager *)sharedBLEDeviceManager
++ (BLEDeviceManager *)sharedBLEManager
 {
-    static BLEDeviceManager *sharedBLEManager;
-    if (! sharedBLEManager) {
-        sharedBLEManager = [[BLEDeviceManager alloc] init];
+    static BLEDeviceManager *bleManager;
+    if (! bleManager) {
+        bleManager = [[BLEDeviceManager alloc] init];
     }
-    return sharedBLEManager;
+    return bleManager;
 }
 
 - (id)init
@@ -121,6 +122,11 @@ static CBUUID *service_uuid;
     return NO;
 }
 
+- (void)setCharacteristics:(NSArray *)cs
+{
+    charas = cs;
+}
+
 - (void)startRangeTimer
 {
     rangeTimerCount = 0;
@@ -170,7 +176,7 @@ static CBUUID *service_uuid;
     
     if (update) {
         if (didUpdateDiscoveredDeviceFlag) {
-            [delegate didUpdateDiscoveredRFduino:nil];
+            [delegate didUpdateDiscoveredBLEDevice:nil];
         }
     }
 }
@@ -184,7 +190,7 @@ static CBUUID *service_uuid;
     BLEDevice *device = [self deviceForPeripheral:peripheral];
     if (device) {
         [device connected];
-        [delegate didConnectDevice:device];
+        [delegate didConnectBLEDevice:device];
     }
 }
 
@@ -196,7 +202,7 @@ static CBUUID *service_uuid;
         if ([delegate respondsToSelector:@selector(didDisconnectDevice:)]) {
             BLEDevice *device = [self deviceForPeripheral:peripheral];
             if (device) {
-                [delegate didDisconnectDevice:device];
+                [delegate didDisconnectBLEDevice:device];
             }
         }
     };
@@ -256,7 +262,7 @@ static CBUUID *service_uuid;
     if (! device) {
         device = [[BLEDevice alloc] init];
         
-        device.rfduinoManager = self;
+        device.bleDeviceManager = self;
 
         device.name = peripheral.name;
         device.UUID = uuid;
@@ -279,16 +285,17 @@ static CBUUID *service_uuid;
         device.advertisementData = data;
     }
     
+    device.characteristics = charas;
     device.advertisementRSSI = RSSI;
     device.advertisementPackets++;
     device.lastAdvertisement = [NSDate date];
     device.outOfRange = false;
     
     if (added) {
-        [delegate didDiscoverDevice:device];
+        [delegate didDiscoverBLEDevice:device];
     } else {
         if (didUpdateDiscoveredDeviceFlag) {
-            [delegate didUpdateDiscoveredDevice:device];
+            [delegate didUpdateDiscoveredBLEDevice:device];
         }
     }
 }
@@ -368,7 +375,7 @@ static CBUUID *service_uuid;
 
     NSDictionary *options = nil;
     
-    didUpdateDiscoveredDeviceFlag = [delegate respondsToSelector:@selector(didUpdateDiscoveredRFduino:)];
+    didUpdateDiscoveredDeviceFlag = [delegate respondsToSelector:@selector(didUpdateDiscoveredBLEDevice:)];
     
     if (didUpdateDiscoveredDeviceFlag) {
         options = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES]
@@ -383,7 +390,7 @@ static CBUUID *service_uuid;
        // NSLog(@"State = %d (%s)\r\n", self.central.state, [self centralManagerStateToString:self.central.state]);
     }
     
-    [NSTimer scheduledTimerWithTimeInterval:(float)60 target:self selector:@selector(scanTimer:) userInfo:nil repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:(float)60 target:self selector:@selector(rangeTick:) userInfo:nil repeats:NO];
     
     CBUUID * myid = [CBUUID UUIDWithString:(@RBL_SERVICE_UUID)];
     [self.central scanForPeripheralsWithServices:[NSArray arrayWithObject:[CBUUID UUIDWithString:@RBL_SERVICE_UUID]] options:@{ CBCentralManagerScanOptionAllowDuplicatesKey : @YES }];
@@ -406,24 +413,24 @@ static CBUUID *service_uuid;
     isScanning = false;
 }
 
-- (void)connectDevice:(BLEDevice *)device
+- (void)connectBLEDevice:(BLEDevice *)device
 {
-    NSLog(@"connectRFduino");
+    NSLog(@"connect ble");
     
     [self.central connectPeripheral:[device peripheral] options:nil];
 }
 
-- (void)disconnectDevice:(BLEDevice *)device
+- (void)disconnectBLEDevice:(BLEDevice *)device
 {
-    NSLog(@"rfduinoManager disconnectPeripheral");
+    NSLog(@"ble mnaager disconnectPeripheral");
     
     [self.central cancelPeripheralConnection:device.peripheral];
 }
 
-- (void)loadedServiceDevice:(id)device
+- (void)loadedServiceBLEDevice:(id)device
 {
     if ([delegate respondsToSelector:@selector(didLoadServiceDevice:)]) {
-        [delegate didLoadServiceDevice:device];
+        [delegate didLoadServiceBLEDevice:device];
     }
 }
 

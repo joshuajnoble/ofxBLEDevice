@@ -17,6 +17,11 @@
 		678E130C1795153C005B6D19 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 678E130B1795153C005B6D19 /* Default.png */; };
 		678E130E17951540005B6D19 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 678E130D17951540005B6D19 /* Default@2x.png */; };
 		678E131017951549005B6D19 /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 678E130F17951549005B6D19 /* Default-568h@2x~iphone.png */; };
+		A8470CA01AC916E900180CC1 /* BLECharacteristic.m in Sources */ = {isa = PBXBuildFile; fileRef = A8470C9F1AC916E900180CC1 /* BLECharacteristic.m */; };
+		A8470CA21AC9C9E000180CC1 /* ofxBLECharacteristic.mm in Sources */ = {isa = PBXBuildFile; fileRef = A8470CA11AC9C9E000180CC1 /* ofxBLECharacteristic.mm */; };
+		A8470CB01AC9CA7900180CC1 /* BLEDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = A8470CA51AC9CA7900180CC1 /* BLEDevice.m */; };
+		A8470CB11AC9CA7900180CC1 /* BLEDeviceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A8470CA91AC9CA7900180CC1 /* BLEDeviceManager.m */; };
+		A8470CB21AC9CA7900180CC1 /* ofxBLEDeviceDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = A8470CAE1AC9CA7900180CC1 /* ofxBLEDeviceDelegate.mm */; };
 		BB16EBD20F2B2A9500518274 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD10F2B2A9500518274 /* OpenGLES.framework */; };
 		BB16EBD90F2B2AB500518274 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD80F2B2AB500518274 /* QuartzCore.framework */; };
 		BBE5EAB80F49AD8400F28951 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBE5EAB70F49AD8400F28951 /* AudioToolbox.framework */; };
@@ -30,9 +35,6 @@
 		E4A823A412561BE3002F86A2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4A823A312561BE3002F86A2 /* CoreGraphics.framework */; };
 		E4D8936E11527B74007E1F53 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = E4D8936B11527B74007E1F53 /* main.mm */; };
 		E4D8936F11527B74007E1F53 /* ofApp.mm in Sources */ = {isa = PBXBuildFile; fileRef = E4D8936D11527B74007E1F53 /* ofApp.mm */; };
-		ED341BDD1992760700C5B522 /* ofxBLEDeviceDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED341BDC1992760700C5B522 /* ofxBLEDeviceDelegate.mm */; };
-		EDE5C9131991E91B0061774B /* BLEDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE5C90E1991E91B0061774B /* BLEDevice.m */; };
-		EDE5C9141991E91B0061774B /* BLEDeviceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE5C9111991E91B0061774B /* BLEDeviceManager.m */; };
 		EDE8041B1992CC1F00AE9497 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED341BD91992754D00C5B522 /* CoreBluetooth.framework */; };
 /* End PBXBuildFile section */
 
@@ -66,9 +68,21 @@
 		678E130B1795153C005B6D19 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = bin/data/Default.png; sourceTree = "<group>"; };
 		678E130D17951540005B6D19 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "bin/data/Default@2x.png"; sourceTree = "<group>"; };
 		678E130F17951549005B6D19 /* Default-568h@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x~iphone.png"; path = "bin/data/Default-568h@2x~iphone.png"; sourceTree = "<group>"; };
-		A80BA34B1AB9322A005B930A /* BLEDeviceDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLEDeviceDefines.h; sourceTree = "<group>"; };
-		A8470C9B1AC903D800180CC1 /* ofxBLECharacteristic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxBLECharacteristic.h; sourceTree = "<group>"; };
-		A8470C9C1AC90C6800180CC1 /* BLECharacteristic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLECharacteristic.h; sourceTree = "<group>"; };
+		A8470C9F1AC916E900180CC1 /* BLECharacteristic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BLECharacteristic.m; path = ../../ofxBLEDevice/src/BLECharacteristic.m; sourceTree = "<group>"; };
+		A8470CA11AC9C9E000180CC1 /* ofxBLECharacteristic.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ofxBLECharacteristic.mm; path = ../../ofxBLEDevice/src/ofxBLECharacteristic.mm; sourceTree = "<group>"; };
+		A8470CA31AC9CA7900180CC1 /* BLECharacteristic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLECharacteristic.h; path = ../../ofxBLEDevice/src/BLECharacteristic.h; sourceTree = "<group>"; };
+		A8470CA41AC9CA7900180CC1 /* BLEDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLEDevice.h; path = ../../ofxBLEDevice/src/BLEDevice.h; sourceTree = "<group>"; };
+		A8470CA51AC9CA7900180CC1 /* BLEDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BLEDevice.m; path = ../../ofxBLEDevice/src/BLEDevice.m; sourceTree = "<group>"; };
+		A8470CA61AC9CA7900180CC1 /* BLEDeviceDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLEDeviceDefines.h; path = ../../ofxBLEDevice/src/BLEDeviceDefines.h; sourceTree = "<group>"; };
+		A8470CA71AC9CA7900180CC1 /* BLEDeviceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLEDeviceDelegate.h; path = ../../ofxBLEDevice/src/BLEDeviceDelegate.h; sourceTree = "<group>"; };
+		A8470CA81AC9CA7900180CC1 /* BLEDeviceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLEDeviceManager.h; path = ../../ofxBLEDevice/src/BLEDeviceManager.h; sourceTree = "<group>"; };
+		A8470CA91AC9CA7900180CC1 /* BLEDeviceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BLEDeviceManager.m; path = ../../ofxBLEDevice/src/BLEDeviceManager.m; sourceTree = "<group>"; };
+		A8470CAA1AC9CA7900180CC1 /* BLEDeviceManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLEDeviceManagerDelegate.h; path = ../../ofxBLEDevice/src/BLEDeviceManagerDelegate.h; sourceTree = "<group>"; };
+		A8470CAB1AC9CA7900180CC1 /* ofxBLECharacteristic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxBLECharacteristic.h; path = ../../ofxBLEDevice/src/ofxBLECharacteristic.h; sourceTree = "<group>"; };
+		A8470CAC1AC9CA7900180CC1 /* ofxBLEDeviceApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxBLEDeviceApp.h; path = ../../ofxBLEDevice/src/ofxBLEDeviceApp.h; sourceTree = "<group>"; };
+		A8470CAD1AC9CA7900180CC1 /* ofxBLEDeviceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxBLEDeviceDelegate.h; path = ../../ofxBLEDevice/src/ofxBLEDeviceDelegate.h; sourceTree = "<group>"; };
+		A8470CAE1AC9CA7900180CC1 /* ofxBLEDeviceDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ofxBLEDeviceDelegate.mm; path = ../../ofxBLEDevice/src/ofxBLEDeviceDelegate.mm; sourceTree = "<group>"; };
+		A8470CAF1AC9CA7900180CC1 /* ofxBLEDeviceDelegateCpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxBLEDeviceDelegateCpp.h; path = ../../ofxBLEDevice/src/ofxBLEDeviceDelegateCpp.h; sourceTree = "<group>"; };
 		BB16EBD10F2B2A9500518274 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BB16EBD80F2B2AB500518274 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BB24DDC910DA781C00E9C588 /* ofxiOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ofxiOS-Info.plist"; sourceTree = "<group>"; };
@@ -85,17 +99,7 @@
 		E4D8936C11527B74007E1F53 /* ofApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofApp.h; path = src/ofApp.h; sourceTree = SOURCE_ROOT; };
 		E4D8936D11527B74007E1F53 /* ofApp.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ofApp.mm; path = src/ofApp.mm; sourceTree = SOURCE_ROOT; };
 		ED341BD91992754D00C5B522 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
-		ED341BDC1992760700C5B522 /* ofxBLEDeviceDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxBLEDeviceDelegate.mm; sourceTree = "<group>"; };
-		EDE5C90D1991E91B0061774B /* BLEDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDevice.h; sourceTree = "<group>"; };
-		EDE5C90E1991E91B0061774B /* BLEDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEDevice.m; sourceTree = "<group>"; };
-		EDE5C90F1991E91B0061774B /* BLEDeviceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDeviceDelegate.h; sourceTree = "<group>"; };
-		EDE5C9101991E91B0061774B /* BLEDeviceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDeviceManager.h; sourceTree = "<group>"; };
-		EDE5C9111991E91B0061774B /* BLEDeviceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEDeviceManager.m; sourceTree = "<group>"; };
-		EDE5C9121991E91B0061774B /* BLEDeviceManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDeviceManagerDelegate.h; sourceTree = "<group>"; };
-		EDE5C9161991F7E00061774B /* ofxBLEDeviceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBLEDeviceDelegate.h; sourceTree = "<group>"; };
-		EDE5C9171991F8F80061774B /* ofxBLEDeviceApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBLEDeviceApp.h; sourceTree = "<group>"; };
 		EDE8041C1992CEAE00AE9497 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		EDE8041F199301CA00AE9497 /* ofxBLEDeviceDelegateCpp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxBLEDeviceDelegateCpp.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -237,19 +241,21 @@
 		EDE5C90C1991E91B0061774B /* src */ = {
 			isa = PBXGroup;
 			children = (
-				EDE5C9171991F8F80061774B /* ofxBLEDeviceApp.h */,
-				A80BA34B1AB9322A005B930A /* BLEDeviceDefines.h */,
-				EDE5C90D1991E91B0061774B /* BLEDevice.h */,
-				EDE5C90E1991E91B0061774B /* BLEDevice.m */,
-				EDE5C90F1991E91B0061774B /* BLEDeviceDelegate.h */,
-				EDE5C9101991E91B0061774B /* BLEDeviceManager.h */,
-				EDE5C9111991E91B0061774B /* BLEDeviceManager.m */,
-				EDE5C9121991E91B0061774B /* BLEDeviceManagerDelegate.h */,
-				EDE5C9161991F7E00061774B /* ofxBLEDeviceDelegate.h */,
-				EDE8041F199301CA00AE9497 /* ofxBLEDeviceDelegateCpp.h */,
-				ED341BDC1992760700C5B522 /* ofxBLEDeviceDelegate.mm */,
-				A8470C9B1AC903D800180CC1 /* ofxBLECharacteristic.h */,
-				A8470C9C1AC90C6800180CC1 /* BLECharacteristic.h */,
+				A8470CA31AC9CA7900180CC1 /* BLECharacteristic.h */,
+				A8470CA41AC9CA7900180CC1 /* BLEDevice.h */,
+				A8470CA51AC9CA7900180CC1 /* BLEDevice.m */,
+				A8470CA61AC9CA7900180CC1 /* BLEDeviceDefines.h */,
+				A8470CA71AC9CA7900180CC1 /* BLEDeviceDelegate.h */,
+				A8470CA81AC9CA7900180CC1 /* BLEDeviceManager.h */,
+				A8470CA91AC9CA7900180CC1 /* BLEDeviceManager.m */,
+				A8470CAA1AC9CA7900180CC1 /* BLEDeviceManagerDelegate.h */,
+				A8470CAB1AC9CA7900180CC1 /* ofxBLECharacteristic.h */,
+				A8470CAC1AC9CA7900180CC1 /* ofxBLEDeviceApp.h */,
+				A8470CAD1AC9CA7900180CC1 /* ofxBLEDeviceDelegate.h */,
+				A8470CAE1AC9CA7900180CC1 /* ofxBLEDeviceDelegate.mm */,
+				A8470CAF1AC9CA7900180CC1 /* ofxBLEDeviceDelegateCpp.h */,
+				A8470CA11AC9C9E000180CC1 /* ofxBLECharacteristic.mm */,
+				A8470C9F1AC916E900180CC1 /* BLECharacteristic.m */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -369,11 +375,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EDE5C9131991E91B0061774B /* BLEDevice.m in Sources */,
-				EDE5C9141991E91B0061774B /* BLEDeviceManager.m in Sources */,
+				A8470CA01AC916E900180CC1 /* BLECharacteristic.m in Sources */,
+				A8470CB21AC9CA7900180CC1 /* ofxBLEDeviceDelegate.mm in Sources */,
+				A8470CB11AC9CA7900180CC1 /* BLEDeviceManager.m in Sources */,
+				A8470CB01AC9CA7900180CC1 /* BLEDevice.m in Sources */,
 				E4D8936E11527B74007E1F53 /* main.mm in Sources */,
 				E4D8936F11527B74007E1F53 /* ofApp.mm in Sources */,
-				ED341BDD1992760700C5B522 /* ofxBLEDeviceDelegate.mm in Sources */,
+				A8470CA21AC9C9E000180CC1 /* ofxBLECharacteristic.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

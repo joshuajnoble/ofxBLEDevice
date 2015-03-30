@@ -12,16 +12,19 @@
 #import "BLEDeviceManagerDelegate.h"
 #import "BLEDeviceManager.h"
 #import "ofxBLEDeviceApp.h"
+#import "ofxBLECharacteristic.h"
 #import <string>
+#import <vector>
 
 @class BLEDeviceManager;
 @class BLEDevice;
+
 
 @interface ofxBLEDeviceDelegate : UIResponder<BLEDeviceManagerDelegate, BLEDeviceDelegate>
 {
     ofxBLEDeviceApp *application;
     
-    @public
+@public
     BLEDeviceManager *deviceManager;
 }
 
@@ -35,7 +38,7 @@
 - (void)didConnectBLEDevice:(BLEDevice *)device;
 - (void)didLoadServiceBLEDevice:(BLEDevice *)device;
 - (void)didDisconnectBLEDevice:(BLEDevice *)device;
-
+//- (void)setCharacteristics:(std::vector<ofxBLECharacteristic>&)charas;
 - (void)sendData:(NSData*) data;
 
 @end

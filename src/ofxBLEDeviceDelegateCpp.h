@@ -18,8 +18,9 @@ void ofxBLEConnectDevice(BLEDevice *device);
 void ofxBLEDisconnectDevice(BLEDevice *device);
 void ofxBLELoadedServiceDevice(BLEDevice *device);
 
-void ofxBLESendData(void * delegate, unsigned char *data, int length);
-
+void ofxBLESendData(void * delegate, unsigned char *data, ofxBLECharacteristic characteristic, int length);
 std::string ofxBLEGetName( BLEDevice *device);
+
+void ofxBLESetCharacteristics(std::vector<ofxBLECharacteristic>& charas);
 
 #endif

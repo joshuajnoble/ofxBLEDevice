@@ -45,6 +45,7 @@
 @property (strong, nonatomic) CBCentralManager *central;
 @property (nonatomic, assign) id<BLEDeviceManagerDelegate> delegate;
 @property (nonatomic, strong) NSMutableArray *devices;
+@property (nonatomic, strong) NSArray *charas;
 
 - (bool)isScanning;
 - (void)startScan;
@@ -54,5 +55,6 @@
 - (void)disconnectBLEDevice:(BLEDevice *)bledevice;
 
 - (void)loadedServiceBLEDevice:(BLEDevice *)bledevice;
+//- (void)setCharacteristics:(NSArray *)cs;
 
 @end

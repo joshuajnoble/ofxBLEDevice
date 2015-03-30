@@ -36,6 +36,7 @@
 
 #import "BLEDeviceDefines.h"
 #import "BLEDeviceDelegate.h"
+#import "BLECharacteristic.h"
 
 @class BLEDeviceManager;
 
@@ -46,16 +47,18 @@ float dataFloat(NSData *data);
 
 // default NULL (NULL = previous fixed RFduino uuid)
 extern NSString *customUUID;
+extern NSString *customTX_UUID;
+extern NSString *customRX_UUID;
 
 @interface BLEDevice : NSObject<CBPeripheralDelegate>
 {
 }
 
 @property(assign, nonatomic) id<BLEDeviceDelegate> delegate;
-
+@property(strong, nonatomic) NSArray *characteristics;
 @property(strong, nonatomic) CBPeripheral *peripheral;
 
-@property(strong, nonatomic) BLEDeviceManager *rfduinoManager;
+@property(strong, nonatomic) BLEDeviceManager *bleDeviceManager;
 
 @property(strong, nonatomic) NSString *name;
 @property(strong, nonatomic) NSString *UUID;
@@ -67,6 +70,6 @@ extern NSString *customUUID;
 - (void)connected;
 - (void)disconnect;
 
-- (void)send:(NSData *)data;
+- (void)send:(NSData *)data uuid:(CBUUID*) uid;
 
 @end

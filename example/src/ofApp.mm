@@ -8,15 +8,11 @@ void ofApp::setup()
     BLEDeviceImpl = [[ofxBLEDeviceDelegate alloc] init];
     [BLEDeviceImpl setApplication:this];
     
-    vector<ofxBLECharacteristic> charas;
-    
-    ofxBLECharacteristic tx;
     tx.UUID = "713D0003-503E-4C75-BA94-3148F18D941E";
     tx.shouldNotify = false;
     
     charas.push_back(tx);
-    
-    ofxBLECharacteristic rx;
+
     rx.UUID = "713D0002-503E-4C75-BA94-3148F18D941E";
     rx.shouldNotify = true;
     
@@ -46,7 +42,7 @@ void ofApp::touchDown(ofTouchEventArgs & touch){
     data[0] = '1';
     data[1] = '2';
     data[2] = '3';
-    ofxBLESendData(BLEDeviceImpl, &data[0], 3);
+    ofxBLESendData(BLEDeviceImpl, &data[0], rx, 3);
 }
 
 //--------------------------------------------------------------

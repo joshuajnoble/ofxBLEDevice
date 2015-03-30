@@ -7,6 +7,7 @@
 //
 
 #import "ofxBLEDeviceDelegate.h"
+#import "ofxBLECharacteristic.h"
 
 @implementation ofxBLEDeviceDelegate
 
@@ -50,8 +51,10 @@ void ofxBLELoadedServiceDevice(BLEDevice *BLE)
     [[BLEDeviceManager sharedBLEManager] loadedServiceBLEDevice:BLE];
 }
 
-void ofxBLESendData(void * delegate, unsigned char* data, int length) {
+void ofxBLESendData(void * delegate, unsigned char* data, ofxBLECharacteristic characteristic, int length) {
     NSData *nsdata = [NSData dataWithBytes:(void*)data length:length];
+    NSString *myNSString = [NSString stringWithUTF8String:characteristic.UUID.c_str()];
+    CBUUID *uuid = [CBUUID UUIDWithString:myNSString];
     return [(id) delegate sendData:nsdata];
 }
 
@@ -68,9 +71,29 @@ std::string ofxBLEGetName( BLEDevice *BLE)
 }
 
 
-- (void)sendData:(NSData*) data
+- (void)sendData:(NSData*) data, CBUUID* uid
 {
-    [connectedBLEDevice send:data];
+    [connectedBLEDevice send:data uuid:uid];
+}
+
+
+void ofxBLESetCharacteristics(std::vector<ofxBLECharacteristic>& charas)
+{
+    
+    NSMutableArray *mm = [[NSMutableArray alloc] init];
+    
+    
+    for( int i = 0; i < charas.size(); i++ ) {
+        
+        NSString *uuid = [NSString stringWithCString:charas.at(i).UUID.c_str() encoding:[NSString defaultCStringEncoding]];
+        BLECharacteristic *b = [[BLECharacteristic alloc] init];
+        [b setId:uuid];
+        b.shouldNotify = charas.at(i).shouldNotify;
+        
+        
+        [mm addObject:b];
+    }
+    [BLEDeviceManager sharedBLEManager].charas = mm;
 }
 
 - (void)didReceive:(NSData *)data
@@ -92,7 +115,7 @@ std::string ofxBLEGetName( BLEDevice *BLE)
 
 - (void)didConnectBLEDevice:(BLEDevice*)BLE
 {
-    [BLEDevice setDelegate:self];
+    [BLE setDelegate:self];
     connectedBLEDevice= BLE;
     application->didConnectBLEDevice(BLE);
 }

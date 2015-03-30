@@ -31,6 +31,8 @@ static const int max_data = 12;
 
 // default NULL (NULL = previous fixed RFduino uuid)
 NSString *customUUID = @RBL_SERVICE_UUID;
+NSString *customTX_UUID = @RBL_CHAR_TX_UUID;
+NSString *customRX_UUID = @RBL_CHAR_RX_UUID;
 
 static CBUUID *service_uuid;
 static CBUUID *send_uuid;
@@ -85,7 +87,7 @@ static void incrementUuid16(CBUUID *uuid, unsigned char amount)
 @implementation BLEDevice
 
 @synthesize delegate;
-@synthesize rfduinoManager;
+@synthesize bleDeviceManager;
 @synthesize peripheral;
 
 @synthesize name;
@@ -94,6 +96,8 @@ static void incrementUuid16(CBUUID *uuid, unsigned char amount)
 @synthesize advertisementRSSI;
 @synthesize advertisementPackets;
 @synthesize outOfRange;
+
+@synthesize characteristics;
 
 - (id)init
 {
@@ -111,10 +115,10 @@ static void incrementUuid16(CBUUID *uuid, unsigned char amount)
     NSLog(@"BLEDevice connected");
     
     service_uuid = [CBUUID UUIDWithString:(customUUID ? customUUID : @"2220")];
-    receive_uuid = [CBUUID UUIDWithString:(customUUID ? customUUID : @"2221")];
+    receive_uuid = [CBUUID UUIDWithString:(customRX_UUID ? customRX_UUID : @"2221")];
     if (customUUID)
         incrementUuid16(receive_uuid, 1);
-    send_uuid = [CBUUID UUIDWithString:(customUUID ? customUUID : @"2222")];
+    send_uuid = [CBUUID UUIDWithString:(customTX_UUID ? customTX_UUID : @"2222")];
     if (customUUID)
         incrementUuid16(send_uuid, 2);
     disconnect_uuid = [CBUUID UUIDWithString:(customUUID ? customUUID : @"2223")];
@@ -135,14 +139,24 @@ static void incrementUuid16(CBUUID *uuid, unsigned char amount)
         CBUUID *tservice_uuid = [CBUUID UUIDWithString:(customUUID ? customUUID : @"2220")];
         if ([service.UUID isEqual:tservice_uuid])
         {
+
+//            CBUUID *treceive_uuid = [CBUUID UUIDWithString:(customRX_UUID ? customRX_UUID : @"2221")];
+//            CBUUID *tsend_uuid = [CBUUID UUIDWithString:(customTX_UUID ? customTX_UUID : @"2222")];
+//            CBUUID *tdisconnect_uuid = [CBUUID UUIDWithString:(customUUID ? customUUID : @"2223")];
+         
+            NSMutableArray *uuids  = [[NSMutableArray alloc] init];
             
-            CBUUID *treceive_uuid = [CBUUID UUIDWithString:(customUUID ? customUUID : @"2221")];
-            CBUUID *tsend_uuid = [CBUUID UUIDWithString:(customUUID ? customUUID : @"2222")];
-            CBUUID *tdisconnect_uuid = [CBUUID UUIDWithString:(customUUID ? customUUID : @"2223")];
+            for( BLECharacteristic *chara in characteristics)
+            {
+                NSString *s = chara.uuid;
+                CBUUID *uuid = [CBUUID UUIDWithString: (chara.uuid)];
+
+                [uuids addObject:uuid];
+            }
             
             
-            NSArray *characteristics = [NSArray arrayWithObjects:treceive_uuid, tsend_uuid, tdisconnect_uuid, nil];
-            [peripheral discoverCharacteristics:characteristics forService:service];
+            //NSArray *characteristics = [NSArray arrayWithObjects:treceive_uuid, tsend_uuid, tdisconnect_uuid, nil];
+            [peripheral discoverCharacteristics:uuids forService:service];
         }
     }
 }
@@ -155,21 +169,30 @@ static void incrementUuid16(CBUUID *uuid, unsigned char amount)
         if ([service.UUID isEqual:tservice_uuid]) {
             for (CBCharacteristic *characteristic in service.characteristics) {
                 
-                CBUUID *treceive_uuid = [CBUUID UUIDWithString:(customUUID ? customUUID : @"2221")];
-                CBUUID *tsend_uuid = [CBUUID UUIDWithString:(customUUID ? customUUID : @"2222")];
+                CBUUID *treceive_uuid = [CBUUID UUIDWithString:(customTX_UUID ? customTX_UUID : @"2221")];
+                CBUUID *tsend_uuid = [CBUUID UUIDWithString:(customRX_UUID ? customRX_UUID : @"2222")];
                 CBUUID *tdisconnect_uuid = [CBUUID UUIDWithString:(customUUID ? customUUID : @"2223")];
                 
-                if ([characteristic.UUID isEqual:treceive_uuid]) {
-                    [peripheral setNotifyValue:YES forCharacteristic:characteristic];
-                } else if ([characteristic.UUID isEqual:tsend_uuid]) {
-                    send_characteristic = characteristic;
-                } else if ([characteristic.UUID isEqual:tdisconnect_uuid]) {
-                    disconnect_characteristic = characteristic;
+                
+                for( BLECharacteristic *chara in characteristics)
+                {
+                    CBUUID *uuid = [CBUUID UUIDWithString:(chara.uuid)];
+                    if ([characteristic.UUID isEqual:uuid]) {
+                        [peripheral setNotifyValue:chara.shouldNotify forCharacteristic:characteristic];
+                    }
                 }
+                
+//                if ([characteristic.UUID isEqual:treceive_uuid]) {
+//                    [peripheral setNotifyValue:YES forCharacteristic:characteristic];
+//                } else if ([characteristic.UUID isEqual:tsend_uuid]) {
+//                    send_characteristic = characteristic;
+//                } else if ([characteristic.UUID isEqual:tdisconnect_uuid]) {
+//                    disconnect_characteristic = characteristic;
+//                }
             }
             
             loadedService = true;
-            [rfduinoManager loadedServiceRFduino:self];
+            [bleDeviceManager loadedServiceBLEDevice:self];
         }
     }
 }
@@ -188,7 +211,7 @@ static void incrementUuid16(CBUUID *uuid, unsigned char amount)
 
 #pragma mark - BLEDevice methods
 
-- (void)send:(NSData *)data
+- (void)send:(NSData *)data uuid:(CBUUID*) uid
 {
     if (! loadedService) {
         @throw [NSException exceptionWithName:@"sendData" reason:@"please wait for ready callback" userInfo:nil];
@@ -198,7 +221,14 @@ static void incrementUuid16(CBUUID *uuid, unsigned char amount)
         @throw [NSException exceptionWithName:@"sendData" reason:@"max data size exceeded" userInfo:nil];
     }
     
-    [peripheral writeValue:data forCharacteristic:send_characteristic type:CBCharacteristicWriteWithoutResponse];
+    for (CBService *service in peripheral.services) {
+        for (CBCharacteristic *characteristic in service.characteristics) {
+            
+            if([characteristic.UUID isEqual:uid]) {
+                [peripheral writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithoutResponse];
+            }
+        }
+    }
 }
 
 - (void)disconnect
@@ -213,7 +243,7 @@ static void incrementUuid16(CBUUID *uuid, unsigned char amount)
         [peripheral writeValue:data forCharacteristic:disconnect_characteristic type:CBCharacteristicWriteWithoutResponse];
     }
     
-    [rfduinoManager disconnectRFduino:self];
+    [bleDeviceManager disconnectBLEDevice:self];
 }
 
 @end

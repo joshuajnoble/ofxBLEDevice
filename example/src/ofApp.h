@@ -37,6 +37,9 @@ class ofApp : public ofxiOSApp, public ofxBLEDeviceApp {
     
     ofxBLEDeviceDelegate *BLEDeviceImpl;
 
+    vector<ofxBLECharacteristic> charas;
+    ofxBLECharacteristic rx;
+    ofxBLECharacteristic tx;
 };
 
 

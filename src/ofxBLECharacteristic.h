@@ -16,6 +16,9 @@ class ofxBLECharacteristic {
 public:
     bool shouldNotify;
     std::string UUID;
+    
+    ofxBLECharacteristic();
+    
 };
 
 #endif
