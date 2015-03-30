@@ -7,6 +7,22 @@ void ofApp::setup()
     
     BLEDeviceImpl = [[ofxBLEDeviceDelegate alloc] init];
     [BLEDeviceImpl setApplication:this];
+    
+    vector<ofxBLECharacteristic> charas;
+    
+    ofxBLECharacteristic tx;
+    tx.UUID = "713D0003-503E-4C75-BA94-3148F18D941E";
+    tx.shouldNotify = false;
+    
+    charas.push_back(tx);
+    
+    ofxBLECharacteristic rx;
+    rx.UUID = "713D0002-503E-4C75-BA94-3148F18D941E";
+    rx.shouldNotify = true;
+    
+    charas.push_back(rx);
+    
+    ofxBLESetCharacteristics(charas);
 }
 
 //--------------------------------------------------------------
