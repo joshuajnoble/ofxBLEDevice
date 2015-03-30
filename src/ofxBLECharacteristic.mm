@@ -12,5 +12,5 @@
 ofxBLECharacteristic::ofxBLECharacteristic()
 {
     shouldNotify = false;
-    UUID = "";
+    UUID = @"";
 }

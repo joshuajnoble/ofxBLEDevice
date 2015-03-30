@@ -8,12 +8,14 @@ void ofApp::setup()
     BLEDeviceImpl = [[ofxBLEDeviceDelegate alloc] init];
     [BLEDeviceImpl setApplication:this];
     
-    tx.UUID = "713D0003-503E-4C75-BA94-3148F18D941E";
+    //ofLog(tx);
+    
+    tx.UUID = @"713D0003-503E-4C75-BA94-3148F18D941E";
     tx.shouldNotify = false;
     
     charas.push_back(tx);
-
-    rx.UUID = "713D0002-503E-4C75-BA94-3148F18D941E";
+    
+    rx.UUID = @"713D0002-503E-4C75-BA94-3148F18D941E";
     rx.shouldNotify = true;
     
     charas.push_back(rx);
@@ -23,17 +25,17 @@ void ofApp::setup()
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::exit(){
-
+    
 }
 
 //--------------------------------------------------------------
@@ -42,22 +44,22 @@ void ofApp::touchDown(ofTouchEventArgs & touch){
     data[0] = '1';
     data[1] = '2';
     data[2] = '3';
-    ofxBLESendData(BLEDeviceImpl, &data[0], rx, 3);
+    ofxBLESendData(BLEDeviceImpl, &data[0], tx, 3);
 }
 
 //--------------------------------------------------------------
 void ofApp::touchMoved(ofTouchEventArgs & touch){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::touchUp(ofTouchEventArgs & touch){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::touchDoubleTap(ofTouchEventArgs & touch){
-
+    
 }
 
 //--------------------------------------------------------------
@@ -67,31 +69,34 @@ void ofApp::touchCancelled(ofTouchEventArgs & touch){
 
 //--------------------------------------------------------------
 void ofApp::lostFocus(){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::gotFocus(){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::gotMemoryWarning(){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::deviceOrientationChanged(int newOrientation){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::didDiscoverBLEDevice(BLEDevice *device)
 {
     cout << " didDiscoverBLEDevice " << endl;
-    std::string deviceName([device.name UTF8String]);
-    if(deviceName == "SimpleChat") {
-        ofxBLEConnectDevice(device);
+    if(device.name != nil)
+    {
+        std::string deviceName([device.name UTF8String]);
+        if(deviceName == "SimpleChat") {
+            ofxBLEConnectDevice(device);
+        }
     }
 }
 

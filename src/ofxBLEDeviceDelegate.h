@@ -39,7 +39,7 @@
 - (void)didLoadServiceBLEDevice:(BLEDevice *)device;
 - (void)didDisconnectBLEDevice:(BLEDevice *)device;
 //- (void)setCharacteristics:(std::vector<ofxBLECharacteristic>&)charas;
-- (void)sendData:(NSData*) data;
+- (void)sendData:(NSData*) data uuid:(CBUUID*) uid;
 
 @end
 

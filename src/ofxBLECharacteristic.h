@@ -15,10 +15,21 @@ class ofxBLECharacteristic {
     
 public:
     bool shouldNotify;
-    std::string UUID;
+    NSString *UUID;
     
     ofxBLECharacteristic();
     
 };
+
+
+
+//@interface ofxBLECharacteristic : NSObject<CBPeripheralDelegate>
+//{
+//}
+//
+//@property bool *shouldNotify;
+//@property std::string *UUID;
+//
+//- (void)init;
 
 #endif
