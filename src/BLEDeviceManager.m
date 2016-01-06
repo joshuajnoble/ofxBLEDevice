@@ -72,7 +72,7 @@ static CBUUID *service_uuid;
 //        dispatch_once(&onceToken, ^{
 //            service_uuid = [CBUUID UUIDWithString:(@RBL_SERVICE_UUID)];
 //        });
-        CBUUID * myid = [CBUUID UUIDWithString:(@RBL_SERVICE_UUID)];
+        CBUUID * myid = [CBUUID UUIDWithString:(@RFDUINO_SERVICE)];//CBUUID * myid = [CBUUID UUIDWithString:(@RBL_SERVICE_UUID)];
         service_uuid = myid;
         
         devices = [[NSMutableArray alloc] init];
@@ -157,7 +157,7 @@ static CBUUID *service_uuid;
         NSDictionary *options = nil;
         options = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES]
                                               forKey:CBCentralManagerScanOptionAllowDuplicatesKey];
-        CBUUID * myid = [CBUUID UUIDWithString:(@RBL_SERVICE_UUID)];
+        CBUUID * myid = [CBUUID UUIDWithString:(@RFDUINO_SERVICE)];//CBUUID * myid = [CBUUID UUIDWithString:(@RBL_SERVICE_UUID)];
         //[central scanForPeripheralsWithServices:[NSArray arrayWithObject:service_uuid] options:options];
         [self.central scanForPeripheralsWithServices:[NSArray arrayWithObject:myid] options:options];
     }
@@ -269,21 +269,23 @@ static CBUUID *service_uuid;
         
         device.peripheral = peripheral;
         
+        NSString *advertData = [advertisementData valueForKeyPath:@"kCBAdvDataLocalName"];
+        device.advertisementData = advertData;
+        
         added = true;
         
         [devices addObject:device];
     }
     
-    device.advertisementData = nil;
     
-    id manufacturerData = [advertisementData objectForKey:CBAdvertisementDataManufacturerDataKey];
-    if (manufacturerData) {
-        const uint8_t *bytes = [manufacturerData bytes];
-        int len = [manufacturerData length];
-        // skip manufacturer uuid
-        NSData *data = [NSData dataWithBytes:bytes+2 length:len-2];
-        device.advertisementData = data;
-    }
+//    id manufacturerData = [advertisementData objectForKey:CBAdvertisementDataManufacturerDataKey];
+//    if (manufacturerData) {
+//        const uint8_t *bytes = [manufacturerData bytes];
+//        int len = [manufacturerData length];
+//        // skip manufacturer uuid
+//        NSData *data = [NSData dataWithBytes:bytes+2 length:len-2];
+//        device.advertisementData = data;
+//    }
     
     device.characteristics = charas;
     device.advertisementRSSI = RSSI;
@@ -392,8 +394,10 @@ static CBUUID *service_uuid;
     
     [NSTimer scheduledTimerWithTimeInterval:(float)60 target:self selector:@selector(rangeTick:) userInfo:nil repeats:NO];
     
-    CBUUID * myid = [CBUUID UUIDWithString:(@RBL_SERVICE_UUID)];
-    [self.central scanForPeripheralsWithServices:[NSArray arrayWithObject:[CBUUID UUIDWithString:@RBL_SERVICE_UUID]] options:@{ CBCentralManagerScanOptionAllowDuplicatesKey : @YES }];
+    CBUUID * myid = [CBUUID UUIDWithString:(@RFDUINO_CHARACTERISTIC)];//CBUUID * myid = [CBUUID UUIDWithString:(@RBL_SERVICE_UUID)];
+//    [self.central scanForPeripheralsWithServices:[NSArray arrayWithObject:[CBUUID UUIDWithString:@RBL_SERVICE_UUID]] options:@{ CBCentralManagerScanOptionAllowDuplicatesKey : @YES }];
+
+        [self.central scanForPeripheralsWithServices:[NSArray arrayWithObject:[CBUUID UUIDWithString:@RFDUINO_CHARACTERISTIC]] options:@{ CBCentralManagerScanOptionAllowDuplicatesKey : @YES }];
     
     if (didUpdateDiscoveredDeviceFlag) {
         [self startRangeTimer];

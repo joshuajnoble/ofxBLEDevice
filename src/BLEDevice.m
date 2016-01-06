@@ -30,9 +30,9 @@
 static const int max_data = 12;
 
 // default NULL (NULL = previous fixed RFduino uuid)
-NSString *customUUID = @RBL_SERVICE_UUID;
-NSString *customTX_UUID = @RBL_CHAR_TX_UUID;
-NSString *customRX_UUID = @RBL_CHAR_RX_UUID;
+NSString *customUUID = @RFDUINO_CHARACTERISTIC;
+NSString *customTX_UUID = @RFDUINO_TX;
+NSString *customRX_UUID = @RFDUINO_RX;
 
 static CBUUID *service_uuid;
 static CBUUID *send_uuid;
